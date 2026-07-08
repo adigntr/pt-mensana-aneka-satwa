@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Analisis Penjualan - PT Mensana Aneka Satwa</title>
+    <style>
+        @page { size: A4; margin: 2cm; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #f7fafc;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px 60px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-radius: 4px;
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2b6cb0;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: #1a365d;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .header h2 {
+            font-size: 20px;
+            color: #2b6cb0;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .header h3 {
+            font-size: 16px;
+            color: #718096;
+            font-weight: 400;
+        }
+        .header .meta {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #718096;
+        }
+        .header .meta strong { color: #4a5568; }
+
+        /* SECTIONS */
+        h2 {
+            font-size: 20px;
+            color: #1a365d;
+            border-left: 4px solid #2b6cb0;
+            padding-left: 15px;
+            margin: 40px 0 20px;
+        }
+        h3 {
+            font-size: 17px;
+            color: #2d3748;
+            margin: 25px 0 12px;
+        }
+        h4 {
+            font-size: 15px;
+            color: #4a5568;
+            margin: 20px 0 10px;
+        }
+        p { margin-bottom: 12px; }
+
+        /* TABLES */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 25px;
+            font-size: 14px;
+        }
+        thead th {
+            background: #2b6cb0;
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+            font-weight: 600;
+        }
+        tbody td {
+            padding: 9px 14px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        tbody tr:hover { background: #f7fafc; }
+        tbody tr:nth-child(even) { background: #f7fafc; }
+        td.right, th.right { text-align: right; }
+        td.center, th.center { text-align: center; }
+
+        /* STATUS BADGES */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-top { background: #c6f6d5; color: #22543d; }
+        .badge-good { background: #bee3f8; color: #2a4365; }
+        .badge-improve { background: #fed7d7; color: #742a2a; }
+        .badge-high { background: #fed7d7; color: #9b2c2c; }
+        .badge-medium { background: #fefcbf; color: #744210; }
+        .badge-low { background: #e2e8f0; color: #4a5568; }
+
+        /* LISTS */
+        ul, ol {
+            margin: 10px 0 15px 25px;
+        }
+        li { margin-bottom: 6px; }
+
+        /* CALLOUT */
+        .callout {
+            background: #ebf8ff;
+            border-left: 4px solid #2b6cb0;
+            padding: 14px 18px;
+            margin: 15px 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 14px;
+        }
+        .callout-success {
+            background: #f0fff4;
+            border-left-color: #38a169;
+        }
+        .callout-warning {
+            background: #fffaf0;
+            border-left-color: #dd6b20;
+        }
+
+        /* KEY METRICS */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .metric-card {
+            background: linear-gradient(135deg, #2b6cb0, #2c5282);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .metric-card .value {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .metric-card .label {
+            font-size: 12px;
+            opacity: 0.85;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* IMAGES */
+        .chart-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+        }
+        .chart-caption {
+            font-size: 13px;
+            color: #718096;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        /* DIVIDER */
+        hr {
+            border: none;
+            border-top: 1px solid #e2e8f0;
+            margin: 30px 0;
+        }
+
+        /* PAGE BREAK for print */
+        .page-break { page-break-before: always; }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            font-size: 13px;
+            color: #a0aec0;
+        }
+
+        /* TOC */
+        .toc {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px 30px;
+            margin: 20px 0 30px;
+        }
+        .toc h3 { margin-top: 0; color: #2b6cb0; }
+        .toc ol { margin-left: 20px; }
+        .toc li { margin-bottom: 4px; font-size: 14px; }
+        .toc a { color: #2b6cb0; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container { padding: 20px 25px; }
+            .metrics-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 22px; }
+            table { font-size: 12px; }
+            thead th, tbody td { padding: 7px 10px; }
+        }
+
+        /* Print */
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; padding: 0; }
+            .page-break { page-break-before: always; }
+            .metric-card { background: #2b6cb0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            thead th { background: #2b6cb0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>Laporan Analisis Penjualan</h1>
+        <h2>PT Mensana Aneka Satwa</h2>
+        <h3>Periode: Januari - Maret 2026 (Q1)</h3>
+        <div class="meta">
+            <strong>Disusun oleh:</strong> Guntur Adi Wardana &nbsp;|&nbsp;
+            <strong>Tanggal:</strong> 8 Juli 2026
+        </div>
+    </div>
+
+    <!-- DAFTAR ISI -->
+    <div class="toc">
+        <h3>Daftar Isi</h3>
+        <ol>
+            <li><a href="#ringkasan">Ringkasan Eksekutif</a></li>
+            <li><a href="#metodologi">Data & Metodologi</a></li>
+            <li><a href="#bulanan">Performa Bulanan</a></li>
+            <li><a href="#cabang">Performa Cabang</a></li>
+            <li><a href="#produk">Analisis Produk</a></li>
+            <li><a href="#pola">Pola Penjualan Harian</a></li>
+            <li><a href="#tren">Tren & Proyeksi</a></li>
+            <li><a href="#kesimpulan">Kesimpulan & Rekomendasi</a></li>
+            <li><a href="#lampiran">Lampiran</a></li>
+        </ol>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 1. RINGKASAN EKSEKUTIF -->
+    <!-- ============================================ -->
+    <h2 id="ringkasan">1. Ringkasan Eksekutif</h2>
+
+    <p>PT Mensana Aneka Satwa mencatat total omset <strong>Rp 2.320.386.997</strong> dari 10 cabang distributor di seluruh Indonesia selama Q1 2026. Dari jumlah tersebut, 15 produk unggulan terjual sebanyak 20.892 unit selama 90 hari aktif penjualan.</p>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="value">Rp 2,32 M</div>
+            <div class="label">Total Omset Q1</div>
+        </div>
+        <div class="metric-card">
+            <div class="value">20.892</div>
+            <div class="label">Total Unit Terjual</div>
+        </div>
+        <div class="metric-card">
+            <div class="value">Rp 25,8 Jt</div>
+            <div class="label">Rata-rata/Hari</div>
+        </div>
+        <div class="metric-card">
+            <div class="value">Jakarta</div>
+            <div class="label">Cabang Tertinggi</div>
+        </div>
+        <div class="metric-card">
+            <div class="value">Masamix</div>
+            <div class="label">Produk Terlaris</div>
+        </div>
+        <div class="metric-card">
+            <div class="value">39,4%</div>
+            <div class="label">Kategori Vitamin</div>
+        </div>
+    </div>
+
+    <h4>Temuan Utama:</h4>
+    <ul>
+        <li>Pola bulanan fluktuatif: Februari turun 11,1%, Maret recovery +17,4%</li>
+        <li>Disparitas cabang signifikan: Jakarta 2,72x lebih besar dari Pontianak</li>
+        <li>Weekend dan hari libur menyebabkan penurunan omset drastis</li>
+        <li>Harga jual sangat konsisten dengan standar perusahaan (deviasi &lt;0,1%)</li>
+    </ul>
+
+    <!-- ============================================ -->
+    <!-- 2. DATA & METODOLOGI -->
+    <!-- ============================================ -->
+    <div class="page-break"></div>
+    <h2 id="metodologi">2. Data & Metodologi</h2>
+
+    <h3>Sumber Data</h3>
+    <p>Data penjualan dihasilkan dari simulasi 10 cabang distributor PT Mensana Aneka Satwa selama 3 bulan (Januari - Maret 2026). Data di-generate menggunakan script Python (<code>generate_daily_data.py</code>) dengan parameter realistis berdasarkan karakteristik bisnis distribusi obat/vitamin ternak di Indonesia.</h3>
+
+    <h3>Konfigurasi Dasar</h3>
+    <ul>
+        <li>10 cabang distributor di kota-kota besar Indonesia</li>
+        <li>15 produk standar perusahaan (6 Vitamin, 4 Antibiotik, 1 Premix, 1 Herbal, 1 Antikoksidiosis, 2 Desinfektan)</li>
+        <li>Periode: 90 hari (1 Januari - 31 Maret 2026)</li>
+        <li>Seed random <code>np.random.seed(42)</code> untuk reproducibility</li>
+    </ul>
+
+    <h3>Tantangan Utama</h3>
+    <div class="callout callout-warning">
+        <strong>Masalah:</strong> Setiap cabang menggunakan <strong>kode dan nama produk yang berbeda-beda</strong> untuk produk yang sama.
+    </div>
+
+    <h4>Contoh: Produk "Supralit" di 3 Cabang</h4>
+    <table>
+        <thead>
+            <tr><th>Cabang</th><th>Kode Lokal</th><th>Nama Lokal</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Medan</td><td>MED-V-001</td><td>Supralit Anti Stress</td></tr>
+            <tr><td>Jakarta</td><td>JKT-VA-001</td><td>Supralit Powder</td></tr>
+            <tr><td>Bandung</td><td>BDG/01/V</td><td>Anti-Stress Powder</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Solusi: Mapping Table</h3>
+    <p>Dibuat tabel mapping yang menghubungkan kode lokal per cabang ke kode standar perusahaan (MSV-001, MSA-001, dll) untuk memungkinkan analisis konsolidasi di tingkat perusahaan.</p>
+
+    <!-- ============================================ -->
+    <!-- 3. PERFORMA BULANAN -->
+    <!-- ============================================ -->
+    <div class="page-break"></div>
+    <h2 id="bulanan">3. Performa Bulanan</h2>
+
+    <p>Omset Q1 2026 menunjukkan pola fluktuatif dengan recovery kuat di Maret.</p>
+
+    <table>
+        <thead>
+            <tr><th>Bulan</th><th class="right">Total Omset</th><th class="center">Hari</th><th class="right">Rata-rata/Hari</th><th class="center">Pertumbuhan</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Januari</td><td class="right">Rp 791.154.480</td><td class="center">31</td><td class="right">Rp 25.521.112</td><td class="center">-</td></tr>
+            <tr><td>Februari</td><td class="right">Rp 703.493.151</td><td class="center">28</td><td class="right">Rp 25.124.755</td><td class="center" style="color:#e53e3e;font-weight:600">-11,1%</td></tr>
+            <tr><td>Maret</td><td class="right">Rp 825.739.366</td><td class="center">31</td><td class="right">Rp 26.636.754</td><td class="center" style="color:#38a169;font-weight:600">+17,4%</td></tr>
+        </tbody>
+    </table>
+
+    <div class="callout">
+        <strong>Insight:</strong> Februari mengalami penurunan karena hari lebih sedikit (28 vs 31) dan adanya hari libur Imlek. Maret menunjukkan recovery kuat, menjadikan bulan dengan omset tertinggi di Q1.
+    </div>
+
+    <div class="chart-container">
+        <img src="charts/01_omset_cabang_bulanan.png" alt="Omset per Cabang per Bulan" onerror="this.style.display='none'">
+        <div class="chart-caption">Gambar 1. Total Omset per Cabang per Bulan (Q1 2026)</div>
+    </div>
+
+    <p>Pola serupa terjadi di hampir semua cabang: turun di Februari, naik di Maret. Jakarta konsisten sebagai kontributor terbesar.</p>
+
+    <!-- ============================================ -->
+    <!-- 4. PERFORMA CABANG -->
+    <!-- ============================================ -->
+    <div class="page-break"></div>
+    <h2 id="cabang">4. Performa Cabang</h2>
+
+    <p>Jakarta dan Surabaya menyumbang <strong>28,9% total omset</strong> dari hanya 2 dari 10 cabang. Sementara 4 cabang terbawah menyumbang 27,5%.</p>
+
+    <h3>Ranking Cabang</h3>
+    <table>
+        <thead>
+            <tr><th class="center">Rank</th><th>Cabang</th><th class="right">Total Omset</th><th class="center">% Total</th><th class="center">Status</th></tr>
+        </thead>
+        <tbody>
+            <tr><td class="center">1</td><td><strong>Jakarta</strong></td><td class="right">Rp 369.977.238</td><td class="center">15,9%</td><td class="center"><span class="badge badge-top">Top Performer</span></td></tr>
+            <tr><td class="center">2</td><td><strong>Surabaya</strong></td><td class="right">Rp 300.746.237</td><td class="center">13,0%</td><td class="center"><span class="badge badge-top">Top Performer</span></td></tr>
+            <tr><td class="center">3</td><td>Bandung</td><td class="right">Rp 260.462.839</td><td class="center">11,2%</td><td class="center"><span class="badge badge-good">Good</span></td></tr>
+            <tr><td class="center">4</td><td>Medan</td><td class="right">Rp 251.699.464</td><td class="center">10,8%</td><td class="center"><span class="badge badge-good">Good</span></td></tr>
+            <tr><td class="center">5</td><td>Makassar</td><td class="right">Rp 250.787.565</td><td class="center">10,8%</td><td class="center"><span class="badge badge-good">Good</span></td></tr>
+            <tr><td class="center">6</td><td>Semarang</td><td class="right">Rp 247.926.039</td><td class="center">10,7%</td><td class="center"><span class="badge badge-good">Good</span></td></tr>
+            <tr><td class="center">7</td><td>Palembang</td><td class="right">Rp 178.443.705</td><td class="center">7,7%</td><td class="center"><span class="badge badge-improve">Perlu Peningkatan</span></td></tr>
+            <tr><td class="center">8</td><td>Padang</td><td class="right">Rp 172.000.578</td><td class="center">7,4%</td><td class="center"><span class="badge badge-improve">Perlu Peningkatan</span></td></tr>
+            <tr><td class="center">9</td><td>Denpasar</td><td class="right">Rp 152.216.908</td><td class="center">6,6%</td><td class="center"><span class="badge badge-improve">Perlu Peningkatan</span></td></tr>
+            <tr><td class="center">10</td><td>Pontianak</td><td class="right">Rp 136.126.424</td><td class="center">5,9%</td><td class="center"><span class="badge badge-improve">Perlu Peningkatan</span></td></tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-success">
+        <strong>Insight:</strong> Top 2 cabang (Jakarta + Surabaya) = 28,9% total omset. 4 cabang "Perlu Peningkatan" = 27,5% &mdash; ada potensi signifikan jika performa mereka ditingkatkan ke level "Good".
+    </div>
+
+    <h3>Distribusi Omset Harian per Cabang</h3>
+    <div class="chart-container">
+        <img src="charts/11_boxplot_cabang.png" alt="Box Plot Cabang" onerror="this.style.display='none'">
+        <div class="chart-caption">Gambar 2. Distribusi Omset Harian per Cabang &mdash; Box plot menunjukkan variasi omset harian. Cabang dengan median lebih tinggi dan variasi lebih kecil menunjukkan performa yang lebih stabil.</div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 5. ANALISIS PRODUK -->
+    <!-- ============================================ -->
+    <div class="page-break"></div>
+    <h2 id="produk">5. Analisis Produk</h2>
+
+    <h3>Top 10 Produk Terlaris</h3>
+    <p>Top 5 produk menyumbang <strong>43,5% total omset</strong>. Masamix (Premix) menjadi produk terlaris meski hanya 1 produk di kategorinya, didukung harga satuan tertinggi (Rp 167.000).</p>
+
+    <div class="chart-container">
+        <img src="charts/03_top10_produk.png" alt="Top 10 Produk Terlaris" onerror="this.style.display='none'">
+        <div class="chart-caption">Gambar 3. Top 10 Produk Terlaris berdasarkan Total Omset Q1 2026</div>
+    </div>
+
+    <h3>Distribusi per Kategori</h3>
+    <p>Vitamin mendominasi dengan 39,4% dari 6 produk, diikuti Antibiotik 26,1%. Premix meski hanya 1 produk menyumbang 9,9% karena harga satuan tinggi.</p>
+
+    <table>
+        <thead>
+            <tr><th>Kategori</th><th class="right">Total Omset</th><th class="center">% Total</th><th class="center">Jumlah Produk</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Vitamin</strong></td><td class="right">Rp 913.291.128</td><td class="center">39,4%</td><td class="center">6</td></tr>
+            <tr><td><strong>Antibiotik</strong></td><td class="right">Rp 605.787.064</td><td class="center">26,1%</td><td class="center">4</td></tr>
+            <tr><td>Desinfektan</td><td class="right">Rp 236.556.601</td><td class="center">10,2%</td><td class="center">2</td></tr>
+            <tr><td>Premix</td><td class="right">Rp 228.846.650</td><td class="center">9,9%</td><td class="center">1</td></tr>
+            <tr><td>Herbal</td><td class="right">Rp 212.445.693</td><td class="center">9,2%</td><td class="center">1</td></tr>
+            <tr><td>Antikoksidiosis</td><td class="right">Rp 123.459.861</td><td class="center">5,3%</td><td class="center">1</td></tr>
+        </tbody>
+    </table>
+
+    <div class="chart-container">
+        <img src="charts/04_kategori_bar.png" alt="Omset per Kategori" onerror="this.style.display='none'">
+        <div class="chart-caption">Gambar 4. Total Omset per Kategori Produk</div>
+    </div>
+
+    <div class="chart-container">
+        <img src="charts/10_kategori_stacked.png" alt="Kategori per Bulan" onerror="this.style.display='none'">
+        <div class="chart-caption">Gambar 5. Omset Kategori per Bulan (Stacked Bar) &mdash; Pola kategori per bulan relatif stabil</div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 6. POLA PENJUALAN HARIAN -->
+    <!-- ============================================ -->
+    <div class="page-break"></div>
+    <h2 id="pola">6. Pola Penjualan Harian</h2>
+
+    <h3>Hari Kerja vs Akhir Pekan</h3>
+    <p>Penjualan pada hari kerja (Sen-Jumat) <strong>48% lebih tinggi</strong> dari akhir pekan. Senin memiliki omset tertinggi karena efek restocking awal pekan, sementara Jumat sedikit lebih rendah karena pelanggan menunda pembelian menjelang weekend.</p>
+
+    <table>
+        <thead>
+            <tr><th>Tipe Hari</th><th class="right">Rata-rata Omset/Hari</th><th class="center">Selisih</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Hari Kerja</strong> (Sen-Jum)</td><td class="right">Rp 28.500.000</td><td class="center">baseline</td></tr>
+            <tr><td><strong>Akhir Pekan</strong> (Sab-Ming)</td><td class="right">Rp 14.700.000</td><td class="center" style="color:#e53e3e;font-weight:600">-48,4%</td></tr>
+        </tbody>
+    </table>
+
+    <div class="chart-container">
+        <img src="charts/06_hari_kerja_weekend.png" alt="Hari Kerja vs Weekend" onerror="this.style.display='none'">
+        <div class="chart-caption">Gambar 6. Perbandingan Omset Hari Kerja vs Akhir Pekan</div>
+    </div>
+
+    <h3>Pola Harian</h3>
+    <table>
+        <thead>
+            <tr><th>Hari</th><th class="center">Index (Senin=100)</th><th>Keterangan</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Senin</strong></td><td class="center">100</td><td>Tertinggi &mdash; restocking awal pekan</td></tr>
+            <tr><td>Selasa - Kamis</td><td class="center">96 - 98</td><td>Stabil</td></tr>
+            <tr><td>Jumat</td><td class="center">88</td><td>Pre-weekend dip</td></tr>
+            <tr><td>Sabtu</td><td class="center">57</td><td>Turun drastis</td></tr>
+            <tr><td>Minggu</td><td class="center">40</td><td>Terendah</td></tr>
+        </tbody>
+    </table>
+
+    <div class="chart-container">
+        <img src="charts/07_omset_per_hari.png" alt="Omset per Hari" onerror="this.style.display='none'">
+        <div class="chart-caption">Gambar 7. Total Omset per Hari dalam Seminggu</div>
+    </div>
+
+    <h3>Dampak Hari Libur Nasional</h3>
+    <p>Hari libur nasional menyebabkan penurunan omset <strong>45-49%</strong> dari rata-rata hari kerja normal. Efek recovery terjadi 1-2 hari setelah libur, menunjukkan adanya pembelian tertunda.</p>
+
+    <table>
+        <thead>
+            <tr><th>Hari Libur</th><th class="right">Omset</th><th class="center">Penurunan</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Tahun Baru (1 Jan)</td><td class="right">Rp 14.045.816</td><td class="center" style="color:#e53e3e">-45,5%</td></tr>
+            <tr><td>Isra Mi'raj (29 Jan)</td><td class="right">Rp 14.223.154</td><td class="center" style="color:#e53e3e">-44,9%</td></tr>
+            <tr><td>Tahun Baru Imlek (17 Feb)</td><td class="right">Rp 13.081.700</td><td class="center" style="color:#e53e3e">-49,3%</td></tr>
+            <tr><td>Nyepi (19 Mar)</td><td class="right">Rp 13.618.728</td><td class="center" style="color:#e53e3e">-47,2%</td></tr>
+        </tbody>
+    </table>
+
+    <div class="chart-container">
+        <img src="charts/08_dampak_libur.png" alt="Dampak Hari Libur" onerror="this.style.display='none'">
+        <div class="chart-caption">Gambar 8. Dampak Hari Libur Nasional terhadap Omset</div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 7. TREN & PROYEKSI -->
+    <!-- ============================================ -->
+    <div class="page-break"></div>
+    <h2 id="tren">7. Tren & Proyeksi</h2>
+
+    <h3>Tren Omset Harian</h3>
+    <p>Garis tren menunjukkan pola harian yang bervariasi dengan penyusutan signifikan saat hari libur, namun tren keseluruhan cenderung stabil dengan sedikit naik.</p>
+
+    <div class="chart-container">
+        <img src="charts/05_tren_harian_regresi.png" alt="Tren Omset Harian" onerror="this.style.display='none'">
+        <div class="chart-caption">Gambar 9. Tren Omset Harian dengan Garis Regresi</div>
+    </div>
+
+    <h3>Proyeksi April 2026</h3>
+    <p>Berdasarkan regresi linear dari data Q1, proyeksi omset April 2026 adalah <strong>Rp 821.323.018</strong> dengan tren sedikit naik (+Rp 26.589/hari). Angka ini hampir sama dengan Maret, menunjukkan stabilisasi di level tinggi.</p>
+
+    <table>
+        <thead>
+            <tr><th>Bulan</th><th class="right">Total Omset</th><th>Keterangan</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Januari 2026</td><td class="right">Rp 791.154.480</td><td>Aktual</td></tr>
+            <tr><td>Februari 2026</td><td class="right">Rp 703.493.151</td><td>Aktual</td></tr>
+            <tr><td>Maret 2026</td><td class="right">Rp 825.739.366</td><td>Aktual</td></tr>
+            <tr style="background:#ebf8ff;font-weight:600"><td>April 2026</td><td class="right">Rp 821.323.018</td><td><span class="badge badge-good">Proyeksi</span></td></tr>
+        </tbody>
+    </table>
+
+    <div class="chart-container">
+        <img src="charts/09_proyeksi_april.png" alt="Proyeksi April" onerror="this.style.display='none'">
+        <div class="chart-caption">Gambar 10. Proyeksi Omset April 2026 dengan Garis Regresi</div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 8. KESIMPULAN & REKOMENDASI -->
+    <!-- ============================================ -->
+    <div class="page-break"></div>
+    <h2 id="kesimpulan">8. Kesimpulan & Rekomendasi</h2>
+
+    <h3>Kesimpulan</h3>
+    <ol>
+        <li>Total omset Q1 2026: <strong>Rp 2,32 miliar</strong> &mdash; performa solid untuk 10 cabang</li>
+        <li>Jakarta dan Surabaya menyumbang <strong>28,9% total omset</strong> dari 2 cabang</li>
+        <li><strong>Vitamin mendominasi</strong> (39,4%), diikuti Antibiotik (26,1%)</li>
+        <li>Weekend turun <strong>~48%</strong> dari hari kerja, hari libur turun <strong>45-49%</strong></li>
+        <li>Harga jual konsisten (deviasi &lt;0,1% dari standar)</li>
+    </ol>
+
+    <h3>Rekomendasi</h3>
+    <table>
+        <thead>
+            <tr><th class="center">No</th><th>Rekomendasi</th><th class="center">Prioritas</th><th>Estimasi Dampak</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="center">1</td>
+                <td><strong>Optimasi 4 cabang bawah</strong> (Pontianak, Denpasar, Padang, Palembang)</td>
+                <td class="center"><span class="badge badge-high">Tinggi</span></td>
+                <td>Peningkatan omset cabang secara signifikan</td>
+            </tr>
+            <tr>
+                <td class="center">2</td>
+                <td><strong>Pre-stocking sebelum hari libur</strong> nasional</td>
+                <td class="center"><span class="badge badge-high">Tinggi</span></td>
+                <td>Mengurangi kehilangan penjualan saat libur</td>
+            </tr>
+            <tr>
+                <td class="center">3</td>
+                <td><strong>Promosi weekend</strong> untuk meningkatkan penjualan Sabtu-Minggu</td>
+                <td class="center"><span class="badge badge-medium">Sedang</span></td>
+                <td>Meningkatkan omset akhir pekan</td>
+            </tr>
+            <tr>
+                <td class="center">4</td>
+                <td><strong>Diversifikasi mix produk</strong> berdasarkan karakter pasar lokal</td>
+                <td class="center"><span class="badge badge-medium">Sedang</span></td>
+                <td>Omset lebih merata dan sesuai kebutuhan</td>
+            </tr>
+            <tr>
+                <td class="center">5</td>
+                <td><strong>Review pricing</strong> untuk produk margin tinggi</td>
+                <td class="center"><span class="badge badge-low">Rendah</span></td>
+                <td>Peningkatan margin keuntungan</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ============================================ -->
+    <!-- 9. LAMPIRAN -->
+    <!-- ============================================ -->
+    <div class="page-break"></div>
+    <h2 id="lampiran">Lampiran</h2>
+
+    <h3>A. Daftar 10 Cabang</h3>
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Nama Cabang</th><th>Provinsi</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>CAB-01</td><td>Medan</td><td>Sumatera Utara</td></tr>
+            <tr><td>CAB-02</td><td>Padang</td><td>Sumatera Barat</td></tr>
+            <tr><td>CAB-03</td><td>Palembang</td><td>Sumatera Selatan</td></tr>
+            <tr><td>CAB-04</td><td>Jakarta</td><td>DKI Jakarta</td></tr>
+            <tr><td>CAB-05</td><td>Bandung</td><td>Jawa Barat</td></tr>
+            <tr><td>CAB-06</td><td>Semarang</td><td>Jawa Tengah</td></tr>
+            <tr><td>CAB-07</td><td>Surabaya</td><td>Jawa Timur</td></tr>
+            <tr><td>CAB-08</td><td>Denpasar</td><td>Bali</td></tr>
+            <tr><td>CAB-09</td><td>Makassar</td><td>Sulawesi Selatan</td></tr>
+            <tr><td>CAB-10</td><td>Pontianak</td><td>Kalimantan Barat</td></tr>
+        </tbody>
+    </table>
+
+    <h3>B. Mapping 15 Produk</h3>
+    <table>
+        <thead>
+            <tr><th>Kode</th><th>Nama Standar</th><th>Kategori</th><th class="right">Harga</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>MSV-001</td><td>Supralit</td><td>Vitamin</td><td class="right">Rp 85.000</td></tr>
+            <tr><td>MSV-002</td><td>Supralit Plus</td><td>Vitamin</td><td class="right">Rp 125.000</td></tr>
+            <tr><td>MSV-003</td><td>Vitapoult</td><td>Vitamin</td><td class="right">Rp 95.000</td></tr>
+            <tr><td>MSV-004</td><td>Vitamas</td><td>Vitamin</td><td class="right">Rp 110.000</td></tr>
+            <tr><td>MSV-005</td><td>Egg Promotor</td><td>Vitamin</td><td class="right">Rp 135.000</td></tr>
+            <tr><td>MSV-006</td><td>Masavit</td><td>Vitamin</td><td class="right">Rp 105.000</td></tr>
+            <tr><td>MSA-001</td><td>Colimas</td><td>Antibiotik</td><td class="right">Rp 78.000</td></tr>
+            <tr><td>MSA-002</td><td>Doxerin Plus</td><td>Antibiotik</td><td class="right">Rp 119.000</td></tr>
+            <tr><td>MSA-003</td><td>Enromas</td><td>Antibiotik</td><td class="right">Rp 92.000</td></tr>
+            <tr><td>MSA-004</td><td>Moxacol Forte</td><td>Antibiotik</td><td class="right">Rp 145.000</td></tr>
+            <tr><td>MSP-001</td><td>Masamix</td><td>Premix</td><td class="right">Rp 167.000</td></tr>
+            <tr><td>MSP-002</td><td>Biomas Herbal</td><td>Herbal</td><td class="right">Rp 155.000</td></tr>
+            <tr><td>MSX-001</td><td>Coxy-Mas</td><td>Antikoksidiosis</td><td class="right">Rp 88.000</td></tr>
+            <tr><td>MSX-002</td><td>GlutaMas</td><td>Desinfektan</td><td class="right">Rp 97.000</td></tr>
+            <tr><td>MSX-003</td><td>Septocid</td><td>Desinfektan</td><td class="right">Rp 72.000</td></tr>
+        </tbody>
+    </table>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p><strong>PT Mensana Aneka Satwa</strong> &mdash; Laporan Analisis Penjualan Bulanan Q1 2026</p>
+        <p>Dokumen ini dihasilkan dari data simulasi untuk keperluan Data Analyst Test</p>
+    </div>
+
+</div>
+
+</body>
+</html>
