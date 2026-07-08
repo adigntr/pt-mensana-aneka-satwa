@@ -1,0 +1,38 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{xcolor}
+\definecolor{linkblue}{RGB}{59,130,246}
+\usepackage[colorlinks=true,linkcolor=linkblue,urlcolor=linkblue]{hyperref}
+
+\makeatletter
+\renewcommand{\includegraphics}[2][]{%
+  \begin{center}%
+  \includegraphics[width=0.95\textwidth,#1]{#2}%
+  \end{center}%
+}
+\makeatother
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+$if(title)$
+\title{$title$}
+$endif$
+$if(date)$
+\date{$date$}
+$endif$
+
+\begin{document}
+$if(title)$
+\maketitle
+$endif$
+$if(toc)$
+\tableofcontents
+\newpage
+$endif$
+$body$
+\end{document}
