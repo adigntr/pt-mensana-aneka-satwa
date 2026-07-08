@@ -4,7 +4,7 @@ Analisis penjualan bulanan Q1 2026 (Januari - Maret) untuk 10 cabang distributor
 
 ## 📊 Dashboard Streamlit
 
-**[Live Demo](https://pt-mensana-aneka-satwa.streamlit.app)** *(coming soon)*
+**[🔗 Live Dashboard](https://pt-mensana-aneka-satwa.streamlit.app/)** - Dashboard interaktif dengan 5 tabs analisis lengkap
 
 ## 🎯 Fitur
 
